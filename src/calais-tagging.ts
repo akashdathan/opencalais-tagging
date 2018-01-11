@@ -13,7 +13,7 @@ import * as Types                                 from './types'
 
 export class OpencalaisTagging {
   
-  static async tag(pageContent : string, accessToken : string) {
+  static async tag(pageContent : string, accessToken : string, callback ?: Types.callback) {
     
     const calaisOptions = {
       "host"    : "api.thomsonreuters.com",
@@ -34,10 +34,15 @@ export class OpencalaisTagging {
 
       try{JSON.parse(calaisResp)} catch(e) {throw(calaisResp)}
 
+      
       const res = OpencalaisTagging.processOpencalaisResult(calaisResp)
-      console.log(res)
+
+      if(callback) callback(undefined, res)
+      else return res
+
     } catch(error) {
-      throw(error)
+      if(callback) callback(error)
+      else throw(error)
     }
   }
   
