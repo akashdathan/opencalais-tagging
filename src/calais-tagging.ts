@@ -34,7 +34,7 @@ export class OpencalaisTagging {
 
       try{JSON.parse(calaisResp)} catch(e) {throw(calaisResp)}
 
-      const res = this.processOpencalaisResult(calaisResp)
+      const res = OpencalaisTagging.processOpencalaisResult(calaisResp)
       console.log(res)
     } catch(error) {
       throw(error)
@@ -61,7 +61,7 @@ export class OpencalaisTagging {
         } else {
           typeGroups[value._typeGroup] = 1
         }
-        this.evaluateOpenCalaisEntity(value, topics, tags, language)
+        OpencalaisTagging.evaluateOpenCalaisEntity(value, topics, tags, language)
       }
     }
     
