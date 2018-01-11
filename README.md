@@ -34,7 +34,7 @@ const calais  = require('opencalais-tagging'),
 calais.tag(content, key, (error, data) => {
 	if(error) console.log('Error', error)
 	console.log('Result : ', data)
-)
+})
 
 
 ```
