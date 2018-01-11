@@ -1,6 +1,6 @@
 {
   "name": "opencalais-tagging",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tag content using Opencalais",
   "main": "./build/index.js",
   "typings": "./build/index.d.ts",
@@ -15,7 +15,10 @@
     "opencalais",
     "tag",
     "content",
-    "tagging"
+    "tagging",
+    "language",
+    "topics",
+    "detect"
   ],
   "author": "Akash Dathan",
   "license": "MIT",
@@ -24,9 +27,6 @@
   },
   "homepage": "https://github.com/akashdathan/opencalais-tagging#readme",
   "dependencies": {
-    "@types/lodash": "^4.14.92",
-    "https": "^1.0.0",
-    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "@types/node": "^9.3.0"

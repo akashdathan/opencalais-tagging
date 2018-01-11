@@ -5,7 +5,6 @@
    Author     : Akash Dathan
 ------------------------------------------------------------------------------*/
 
-import * as lo                                    from 'lodash'
 import * as https                                 from 'https'
 import * as zlib                                  from 'zlib'
 import * as Types                                 from './types'
@@ -49,10 +48,7 @@ export async function executeHttps(urlObj: any, inputData : string): Promise<str
     })
 
     req.shouldKeepAlive = false
-
-    req.on('response', (res: any) => {
-      
-    })
+    
     req.on('error', (err: any) => {
       return reject(err)
     })

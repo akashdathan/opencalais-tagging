@@ -13,3 +13,6 @@ export declare type TopicInfo = {
     label: string;
     score: number;
 };
+export interface callback {
+    (error: any, data: any): any;
+}

@@ -52,8 +52,6 @@ function executeHttps(urlObj, inputData) {
                 });
             });
             req.shouldKeepAlive = false;
-            req.on('response', (res) => {
-            });
             req.on('error', (err) => {
                 return reject(err);
             });

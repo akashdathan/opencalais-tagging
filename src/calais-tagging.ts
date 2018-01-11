@@ -41,18 +41,17 @@ export class OpencalaisTagging {
       else return res
 
     } catch(error) {
-      if(callback) callback(error)
+      if(callback) callback(error, undefined)
       else throw(error)
     }
   }
   
   static processOpencalaisResult(calaisResp: string) {
-    const calaisJson : { [index : string] : any }    = JSON.parse(calaisResp),
-          typeGroups : { [index : string] : number } = {}
-    
-    var topics   = [] as Types.TopicInfo[],
-        tags     = [] as Types.TagInfo[],
-        language = [] as string[]
+    const calaisJson = JSON.parse(calaisResp),
+          typeGroups = {} as any,
+          topics     = [] as Types.TopicInfo[],
+          tags       = [] as Types.TagInfo[],
+          language   = [] as string[]
 
     for(let key in calaisJson) {
       if(!key.startsWith('http')) continue

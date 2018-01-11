@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("./utils");
 const Types = require("./types");
 class OpencalaisTagging {
-    static tag(pageContent, accessToken) {
+    static tag(pageContent, accessToken, callback) {
         return __awaiter(this, void 0, void 0, function* () {
             const calaisOptions = {
                 "host": "api.thomsonreuters.com",
@@ -41,16 +41,21 @@ class OpencalaisTagging {
                     throw (calaisResp);
                 }
                 const res = OpencalaisTagging.processOpencalaisResult(calaisResp);
-                console.log(res);
+                if (callback)
+                    callback(undefined, res);
+                else
+                    return res;
             }
             catch (error) {
-                throw (error);
+                if (callback)
+                    callback(error, undefined);
+                else
+                    throw (error);
             }
         });
     }
     static processOpencalaisResult(calaisResp) {
-        const calaisJson = JSON.parse(calaisResp), typeGroups = {};
-        var topics = [], tags = [], language = [];
+        const calaisJson = JSON.parse(calaisResp), typeGroups = {}, topics = [], tags = [], language = [];
         for (let key in calaisJson) {
             if (!key.startsWith('http'))
                 continue;
