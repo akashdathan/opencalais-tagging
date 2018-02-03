@@ -1,5 +1,4 @@
 # opencalais-tagging
-Open Calais attaches intelligent metadata-tags to your unstructured content, enabling powerful text analytics. The Open Calais natural language processing engine automatically analyzes and tags your input files in such a way that your consuming application can both easily pinpoint relevant data, and effectively leverage the invaluable intelligence and insights contained within the text. Please refer to the conplete documentation [here](http://www.opencalais.com/wp-content/uploads/folder/ThomsonReutersOpenCalaisAPIUserGuide020316R93.pdf).
 
 [![NPM](https://nodei.co/npm/opencalais-tagging.png?downloads=true&downloadRank=true&stars=true)][npm-url]
 
@@ -9,6 +8,8 @@ Open Calais attaches intelligent metadata-tags to your unstructured content, ena
 [![GitHub stars](https://img.shields.io/github/stars/akashdathan/opencalais-tagging.svg?style=social&label=Star)](https://github.com/akashdathan/opencalais-tagging/stargazers) [![GitHub watchers](https://img.shields.io/github/watchers/akashdathan/opencalais-tagging.svg?style=social&label=Watch)](https://github.com/akashdathan/opencalais-tagging/subscription)
 
 [npm-url]: https://npmjs.org/package/opencalais-tagging
+
+>Open Calais attaches intelligent metadata-tags to your unstructured content, enabling powerful text analytics. The Open Calais natural language processing engine automatically analyzes and tags your input files in such a way that your consuming application can both easily pinpoint relevant data, and effectively leverage the invaluable intelligence and insights contained within the text. Please refer to the conplete documentation [here](http://www.opencalais.com/wp-content/uploads/folder/ThomsonReutersOpenCalaisAPIUserGuide020316R93.pdf).
 
 ## Installation
 
@@ -21,7 +22,7 @@ $ npm install opencalais-tagging
 * Get your free opencalais key from [here](http://www.opencalais.com/opencalais-api/).
 
 
-A promise is returned if a callback function is not provided.
+>A promise is returned if a callback function is not provided.
 
 ```js
 const calais  = require('opencalais-tagging'),
@@ -36,8 +37,7 @@ console.log('Response : ', response)
 
 ```
 
-
-An optional callbck function can also be provided.
+>An optional callbck function can also be provided.
 
 ```js
 const calais  = require('opencalais-tagging'),
@@ -52,6 +52,7 @@ calais.tag(options, (error, data) => {
 ```
 
 ## Options
+> ####The following query parameters can be provided.
 
 | Options | Description | Values | Default Value |
 |--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|------------------|
