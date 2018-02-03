@@ -1,3 +1,8 @@
-import * as Types from './types';
-export declare function insertUnique(tagObj: Types.TagInfo, tags: Types.TagInfo[]): void;
 export declare function executeHttps(urlObj: any, inputData: string): Promise<string>;
+export declare function getCalaisOptions(headers: any): {
+    "host": string;
+    "port": string;
+    "path": string;
+    "method": string;
+    "headers": any;
+};

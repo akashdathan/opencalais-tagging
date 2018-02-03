@@ -15,36 +15,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("./utils");
-const Types = require("./types");
 class OpencalaisTagging {
-    static tag(pageContent, accessToken, callback) {
+    static tag(options, callback) {
         return __awaiter(this, void 0, void 0, function* () {
-            const calaisOptions = {
-                "host": "api.thomsonreuters.com",
-                "port": "443",
-                "path": "/permid/calais",
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "text/raw",
-                    "OutputFormat": "application/json",
-                    "X-AG-Access-Token": accessToken,
-                    "Content-Length": Buffer.byteLength(pageContent, 'utf8'),
-                    "omitOutputtingOriginalText": true
-                }
+            if (!options.accessToken)
+                throw (new Error(`accessToken not provided`));
+            if (!options.content)
+                throw (new Error(`content not provided`));
+            const content = options.content, accessToken = options.accessToken;
+            const headers = {
+                "Content-Type": "text/raw",
+                "OutputFormat": "application/json",
+                "omitOutputtingOriginalText": true,
+                "X-AG-Access-Token": accessToken,
+                "Content-Length": Buffer.byteLength(content, 'utf8')
             };
+            delete options.content;
+            delete options.accessToken;
+            for (let key in options)
+                headers[key] = options[key];
+            const calaisOptions = utils_1.getCalaisOptions(headers);
             try {
-                const calaisResp = yield utils_1.executeHttps(calaisOptions, pageContent);
-                try {
-                    JSON.parse(calaisResp);
+                const calaisResp = yield utils_1.executeHttps(calaisOptions, content);
+                if (headers.OutputFormat === "application/json") {
+                    try {
+                        JSON.parse(calaisResp);
+                    }
+                    catch (e) {
+                        throw (calaisResp);
+                    }
+                    if (callback)
+                        callback(undefined, JSON.parse(calaisResp));
+                    else
+                        return JSON.parse(calaisResp);
                 }
-                catch (e) {
-                    throw (calaisResp);
+                else {
+                    if (callback)
+                        callback(undefined, calaisResp);
+                    else
+                        return calaisResp;
                 }
-                const res = OpencalaisTagging.processOpencalaisResult(calaisResp);
-                if (callback)
-                    callback(undefined, res);
-                else
-                    return res;
             }
             catch (error) {
                 if (callback)
@@ -53,66 +63,6 @@ class OpencalaisTagging {
                     throw (error);
             }
         });
-    }
-    static processOpencalaisResult(calaisResp) {
-        const calaisJson = JSON.parse(calaisResp), typeGroups = {}, topics = [], tags = [], language = [];
-        for (let key in calaisJson) {
-            if (!key.startsWith('http'))
-                continue;
-            const value = calaisJson[key];
-            if (value._typeGroup) {
-                const groupCount = typeGroups[value._typeGroup];
-                if (groupCount) {
-                    typeGroups[value._typeGroup] = groupCount + 1;
-                }
-                else {
-                    typeGroups[value._typeGroup] = 1;
-                }
-                OpencalaisTagging.evaluateOpenCalaisEntity(value, topics, tags, language);
-            }
-        }
-        return { topics, tags, language: language[0] };
-    }
-    static evaluateOpenCalaisEntity(entity, topics, tags, language) {
-        switch (entity._typeGroup) {
-            case 'topics':
-                const topicsObj = {
-                    label: entity.name,
-                    score: entity.score
-                };
-                topics.push(topicsObj);
-                break;
-            case 'language':
-                language.push(entity.language.split('/').pop());
-                break;
-            case 'socialTag':
-                const socialObj = {
-                    tag: entity.name,
-                    type: Types.TagType.SOCIALTAG,
-                    relevance: entity.importance
-                };
-                utils_1.insertUnique(socialObj, tags);
-                break;
-            case 'entities':
-                if (entity.forenduserdisplay && entity.forenduserdisplay === 'true') {
-                    const entitiesObj = {
-                        tag: entity.name,
-                        entityType: entity._type,
-                        type: Types.TagType.ENTITY,
-                        relevance: entity.relevance
-                    };
-                    utils_1.insertUnique(entitiesObj, tags);
-                }
-                break;
-            case 'industry':
-                const entitiesObj = {
-                    tag: entity.name,
-                    type: Types.TagType.INDUSTRY,
-                    relevance: entity.relevance
-                };
-                utils_1.insertUnique(entitiesObj, tags);
-                break;
-        }
     }
 }
 exports.OpencalaisTagging = OpencalaisTagging;

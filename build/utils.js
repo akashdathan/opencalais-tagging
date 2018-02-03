@@ -16,21 +16,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const https = require("https");
 const zlib = require("zlib");
-function insertUnique(tagObj, tags) {
-    let flag = true;
-    for (const obj of tags) {
-        if (obj.tag === tagObj.tag)
-            flag = false;
-    }
-    if (flag) {
-        tags.push(tagObj);
-    }
-}
-exports.insertUnique = insertUnique;
 function executeHttps(urlObj, inputData) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield new Promise((resolve, reject) => {
-            urlObj.agent = new https.Agent({ keepAlive: true });
             const req = https.request(urlObj, (outputStream) => {
                 switch (outputStream.headers['content-encoding']) {
                     case 'gzip':
@@ -51,7 +39,6 @@ function executeHttps(urlObj, inputData) {
                     return reject(response);
                 });
             });
-            req.shouldKeepAlive = false;
             req.on('error', (err) => {
                 return reject(err);
             });
@@ -62,4 +49,14 @@ function executeHttps(urlObj, inputData) {
     });
 }
 exports.executeHttps = executeHttps;
+function getCalaisOptions(headers) {
+    return {
+        "host": "api.thomsonreuters.com",
+        "port": "443",
+        "path": "/permid/calais",
+        "method": "POST",
+        "headers": headers
+    };
+}
+exports.getCalaisOptions = getCalaisOptions;
 //# sourceMappingURL=utils.js.map

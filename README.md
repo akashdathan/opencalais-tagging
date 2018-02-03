@@ -1,21 +1,14 @@
 # opencalais-tagging
-Tag text content using OpenCalais.
+Open Calais attaches intelligent metadata-tags to your unstructured content, enabling powerful text analytics. The Open Calais natural language processing engine automatically analyzes and tags your input files in such a way that your consuming application can both easily pinpoint relevant data, and effectively leverage the invaluable intelligence and insights contained within the text. Please refer to the conplete documentation [here](http://www.opencalais.com/wp-content/uploads/folder/ThomsonReutersOpenCalaisAPIUserGuide020316R93.pdf).
 
 [![NPM](https://nodei.co/npm/opencalais-tagging.png?downloads=true&downloadRank=true&stars=true)][npm-url]
 
 
-[![bitHound Overall Score](https://www.bithound.io/github/akashdathan/opencalais-tagging/badges/score.svg)](https://www.bithound.io/github/akashdathan/opencalais-tagging)
+[![bitHound Overall Score](https://www.bithound.io/github/akashdathan/opencalais-tagging/badges/score.svg)](https://www.bithound.io/github/akashdathan/opencalais-tagging) [![Build Status](https://travis-ci.org/akashdathan/opencalais-tagging.svg?branch=master)](https://travis-ci.org/akashdathan/opencalais-tagging) [![NPM version](http://img.shields.io/npm/v/gm-palette.svg?style=flat-square)](https://www.npmjs.org/package/opencalais-tagging) [![NPM license](http://img.shields.io/npm/l/gm-palette.svg?style=flat-square)](https://www.npmjs.org/package/opencalais-tagging)
 
 [![GitHub stars](https://img.shields.io/github/stars/akashdathan/opencalais-tagging.svg?style=social&label=Star)](https://github.com/akashdathan/opencalais-tagging/stargazers) [![GitHub watchers](https://img.shields.io/github/watchers/akashdathan/opencalais-tagging.svg?style=social&label=Watch)](https://github.com/akashdathan/opencalais-tagging/subscription)
 
 [npm-url]: https://npmjs.org/package/opencalais-tagging
-
-## Features
-
-* Tag any text content.
-* Topic and Tags with their respective relevance.
-* Categorized Tags.
-* Language of the given content.
 
 ## Installation
 
@@ -23,55 +16,54 @@ Tag text content using OpenCalais.
 $ npm install opencalais-tagging
 ```
 
-* Get opencalais key from [here](http://www.opencalais.com/opencalais-api/).
+## Usage
 
-## Example
+* Get your free opencalais key from [here](http://www.opencalais.com/opencalais-api/).
+
+
+A promise is returned if a callback function is not provided.
 
 ```js
-
 const calais  = require('opencalais-tagging'),
-      content = 'The content to tag',
-      key     = 'opencalais-key'
-	  
-//If callback is not provided, Promise is returned.
-calais.tag(content, key, (error, data) => {
-  if(error) console.log('Error', error)
-  console.log('Result : ', data)
-})
+      options = {
+        content     : 'The content to tag',
+        accessToken : 'opencalais-key'
+      }
+	
+const response = await calais.tag(options)
 
+console.log('Response : ', response)
 
 ```
 
-## Response Data Sample
+
+An optional callbck function can also be provided.
 
 ```js
-{ 	
-  language: 'English',
-  topics:
-    [ 
-      { label: 'Entertainment_Culture', score: 1 },
-      { label: 'Politics', score: 0.618 } 
-    ],
-  tags:
-    [ 
-      { tag: 'Competitive intelligence', type: 'SOCIALTAG', relevance: '1' },
-      { tag: 'Fusion GPS', type: 'SOCIALTAG', relevance: '1' },
-      { tag: 'BuzzFeed', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'Michael D. Cohen', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'Russia–United Kingdom relations', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'United Kingdom–United States relations', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'International relations', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'Donald Trump–Russia dossier', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'Mass media', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'Foreign relations', type: 'SOCIALTAG', relevance: '2' },
-      { tag: 'Newspaper Publishing', type: 'INDUSTRY', relevance: 0 },
-      { tag: 'Social Media & Networking', type: 'INDUSTRY', relevance: 0.2 },
-      { tag: 'Beverly Hills', entityType: 'City', type: 'ENTITY', relevance: 0.2 },
-      { tag: 'the New York Times', entityType: 'Company', type: 'ENTITY', relevance: 0 },
-      { tag: 'Charles J. Harder', entityType: 'Person', type: 'ENTITY', relevance: 0.2 },
-      { tag: 'Russia', entityType: 'Country', type: 'ENTITY', relevance: 0.2 },
-      { tag: 'Trump', entityType: 'Person', type: 'ENTITY', relevance: 0.8 },
-      { tag: 'Henry Holt', entityType: 'Person', type: 'ENTITY', relevance: 0.2 } 
-    ]
-}
+const calais  = require('opencalais-tagging'),
+      options = {
+        content     : 'The content to tag',
+        accessToken : 'opencalais-key'
+      }
+	  
+calais.tag(options, (error, data) => {
+  console.log('Response : ', data)
+})
 ```
+
+## Options
+
+| Options | Description | Values | Default Value |
+|:--------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:|------------------|
+| content (MANDATORY) | Content to be tagged. | string | none |
+| accessToken (MANDATORY) | Obtained access token | string | none |
+| Content-Type | Indicates the input mime type. | text/html, text/xml, text/raw, application/pdf | text/raw |
+| omitOutputtingOriginalText | Excludes the original text from the output.  Highly recommended for large input files. | boolean | true |
+| outputFormat | Defines the output format. | xml/rdf, application/json, text/n3 | application/json |
+| x-calais-contentClass | Specifies the genre of the input document.  Highly recommended for optimal extraction  when input files are news stories or research  reports. | news, research | none |
+| x-calais-language | Indicates the language of the input text. | English, French, Spanish | none |
+| x-calais-selectiveTags | Lets you specify a custom set of metadata tag  types to be included in the output. | additionalcontactdetails, company, country, deal, company, industry, person, socialtags, topic | none |
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
