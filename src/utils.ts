@@ -48,7 +48,7 @@ export async function executeHttps(urlObj: any, inputData : string): Promise<str
 
 export function getCalaisOptions(headers : any) {
   return {
-    "host"    : "api.thomsonreuters.com",
+    "host"    : "api-eit.refinitiv.com",
     "port"    : "443",
     "path"    : "/permid/calais",
     "method"  : "POST",
