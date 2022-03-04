@@ -51,7 +51,7 @@ function executeHttps(urlObj, inputData) {
 exports.executeHttps = executeHttps;
 function getCalaisOptions(headers) {
     return {
-        "host": "api.thomsonreuters.com",
+        "host": "api-eit.refinitiv.com",
         "port": "443",
         "path": "/permid/calais",
         "method": "POST",
