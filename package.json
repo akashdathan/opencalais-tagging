@@ -1,6 +1,6 @@
 {
   "name": "opencalais-tagging",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Tag content using Opencalais",
   "main": "./build/index.js",
   "typings": "./build/index.d.ts",
@@ -26,13 +26,12 @@
     "url": "https://github.com/akashdathan/opencalais-tagging/issues"
   },
   "homepage": "https://github.com/akashdathan/opencalais-tagging#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.3.0",
     "chai": "^4.1.2",
-    "mocha": "^5.0.0"
+    "mocha": "^9.2.2"
   }
 }
