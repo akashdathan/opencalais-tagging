@@ -1,9 +1,4 @@
-# opencalais-tagging
-
-[![NPM](https://nodei.co/npm/opencalais-tagging.png?downloads=true&downloadRank=true&stars=true)][npm-url]
-
-
-[![bitHound Overall Score](https://www.bithound.io/github/akashdathan/opencalais-tagging/badges/score.svg)](https://www.bithound.io/github/akashdathan/opencalais-tagging) [![Build Status](https://travis-ci.org/akashdathan/opencalais-tagging.svg?branch=master)](https://travis-ci.org/akashdathan/opencalais-tagging) [![NPM version](http://img.shields.io/npm/v/gm-palette.svg?style=flat-square)](https://www.npmjs.org/package/opencalais-tagging) [![NPM license](http://img.shields.io/npm/l/gm-palette.svg?style=flat-square)](https://www.npmjs.org/package/opencalais-tagging)
+# Opencalais Tagging
 
 [![GitHub stars](https://img.shields.io/github/stars/akashdathan/opencalais-tagging.svg?style=social&label=Star)](https://github.com/akashdathan/opencalais-tagging/stargazers) [![GitHub watchers](https://img.shields.io/github/watchers/akashdathan/opencalais-tagging.svg?style=social&label=Watch)](https://github.com/akashdathan/opencalais-tagging/subscription)
 
